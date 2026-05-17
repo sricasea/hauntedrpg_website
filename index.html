@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haunted — Burzerkerr Studios LLC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+
+    /* =====================================================================
+       CHANDLER42 — web font via @font-face
+       Stand-in: Courier New. Replace .otf with a .woff2 for production.
+       ===================================================================== */
+    @font-face {
+      font-family: 'Chandler42';
+      src: url('assets/Chandler42Regular.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* =====================================================================
+       COLOR + FONT TOKENS
+       ===================================================================== */
+    :root {
+      --bg:           #1A1510;
+      --candleflame:  #E8B86D;
+      --streetlamp:   #C47D1A;
+      --ghost-light:  #8EB8C4;
+      --dried-blood:  #6B2A1A;
+      --smoke-grey:   #4A5C5E;
+
+      --font-body:    'IM Fell English', Georgia, serif;
+      --font-heading: 'Anton SC', sans-serif;
+      --font-mono:    'Chandler42', 'Courier New', Courier, monospace;
+
+      /* Cover art native aspect ratio 3508 : 2480 */
+      --cover-ratio: calc(3508 / 2480);
+    }
+
+    /* =====================================================================
+       RESET & BASE
+       ===================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--candleflame);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+
+    /* =====================================================================
+       GRAIN / NOISE TEXTURE OVERLAY
+       Fixed, non-interactive, sits above everything via z-index 999.
+       Uses an inline SVG feTurbulence filter tiled as a background-image.
+       ===================================================================== */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.045;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* =====================================================================
+       NAVIGATION — fixed, top-right, fades left to transparent
+       ===================================================================== */
+    nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.5rem 2.25rem;
+      /* gradient bleeds rightward from transparent to background */
+      background: linear-gradient(to left, var(--bg) 55%, transparent 100%);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      font-family: var(--font-body);
+      color: var(--smoke-grey);
+      text-decoration: none;
+      font-size: 0.875rem;
+      letter-spacing: 0.08em;
+      transition: color 0.25s ease;
+    }
+
+    nav a:hover {
+      color: var(--ghost-light);
+    }
+
+    /* =====================================================================
+       HERO — full viewport, image contained with letterboxing
+       ===================================================================== */
+    #hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    /* Wrapper maintains the cover art's native aspect ratio.
+       Width is the smaller of 100vw and the height-constrained width,
+       so the image always fits inside the viewport without cropping. */
+    .hero-image-wrapper {
+      position: relative;
+      width: min(100vw, calc(100vh * var(--cover-ratio)));
+      aspect-ratio: 3508 / 2480;
+      flex-shrink: 0;
+    }
+
+    .hero-cover {
+      display: block;
+      width: 100%;
+      height: 100%;
+      /* object-fit: fill is safe here because the wrapper
+         already has the correct aspect ratio */
+      object-fit: fill;
+    }
+
+    /* Radial vignette — pseudo-element over the cover art */
+    .hero-image-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse at center,
+        transparent 38%,
+        rgba(26, 21, 16, 0.55) 100%
+      );
+    }
+
+    /* Overlay container — centered on the left half of the image.
+       left: 25% = center of the 0–50% left region.
+       width: 46% keeps the content within the left half. */
+    .hero-overlay {
+      position: absolute;
+      z-index: 2;
+      left: 25%;
+      top: 25%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      width: 46%;
+      text-align: center;
+    }
+
+    /* Title treatment PNG — 75% of the overlay container width */
+    .hero-title-img {
+      display: block;
+      max-width: 75%;
+      height: auto;
+    }
+
+    /* Tagline — IM Fell English italic, streetlamp (matches h2 headers) */
+    .hero-tagline {
+      font-family: var(--font-body);
+      font-style: italic;
+      color: var(--streetlamp);
+      font-size: clamp(1.4rem, 2.1vw, 1.9rem);
+      line-height: 1.7;
+      max-width: 34ch;
+      margin: 0;
+    }
+
+    /* =====================================================================
+       SHARED SECTION CHROME
+       ===================================================================== */
+    .section-rule {
+      display: block;
+      border: none;
+      border-top: 1px solid var(--dried-blood);
+      opacity: 0.45;
+      max-width: 660px;
+      margin: 0 auto;
+    }
+
+    .section-inner {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem;
+    }
+
+    /* =====================================================================
+       TYPOGRAPHY — headings & body
+       ===================================================================== */
+    h2 {
+      font-family: var(--font-heading);
+      color: var(--streetlamp);
+      font-size: clamp(1.54rem, 2.86vw, 2.2rem);
+      letter-spacing: 0.06em;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    p {
+      font-family: var(--font-body);
+      color: var(--candleflame);
+      font-size: 1.155rem;
+      line-height: 1.85;
+      margin-bottom: 1.5rem;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* =====================================================================
+       THE FEEL — case-file artifact section
+       ===================================================================== */
+    #feel .section-inner {
+      text-align: center;
+    }
+
+    /* "In the register of" — monospaced label, spaced caps */
+    .feel-label {
+      font-family: var(--font-mono);
+      color: var(--smoke-grey);
+      font-size: 0.68rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 0.4rem;
+    }
+
+    /* Touchstones list — ghost light, Chandler42, dried-blood separators */
+    .touchstones {
+      font-family: var(--font-mono);
+      color: var(--ghost-light);
+      opacity: 0.85;
+      font-size: clamp(0.8rem, 1.15vw, 0.95rem);
+      letter-spacing: 0.07em;
+      line-height: 2.3;
+      margin-bottom: 2.5rem;
+    }
+
+    .touchstones .sep {
+      color: var(--dried-blood);
+      margin: 0 0.55em;
+      opacity: 1;
+    }
+
+    /* "You know the feeling." — coming-soon style, spaced mono caps */
+    .feel-closer {
+      font-family: var(--font-mono);
+      color: var(--smoke-grey);
+      font-size: 0.78rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      opacity: 0.72;
+      margin-bottom: 0;
+    }
+
+    /* =====================================================================
+       MAILING LIST CTA
+       Distinct section: warmer background panel, headline-scale copy,
+       soft box around the form area.
+       ===================================================================== */
+
+    /* Subtle background shift — slightly warmer and lighter than --bg */
+    #mailing-list {
+      background-color: #211c16;
+      border-top: 1px solid rgba(107, 42, 26, 0.35);
+      border-bottom: 1px solid rgba(107, 42, 26, 0.35);
+    }
+
+    #mailing-list .section-inner {
+      text-align: center;
+    }
+
+    /* "BackerKit launching November 2026." — headline scale */
+    .cta-launch {
+      font-family: var(--font-heading);
+      color: var(--streetlamp);
+      font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+      letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+    }
+
+    /* "The case is still open." — IM Fell italic, larger than before */
+    .cta-open {
+      font-family: var(--font-body);
+      font-style: italic;
+      color: var(--candleflame);
+      opacity: 0.82;
+      font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+      margin-bottom: 3rem;
+    }
+
+    /* Soft box wrapping the form — low-contrast border, gentle inset feel */
+    .cta-box {
+      display: inline-block;
+      border: 1px solid rgba(196, 125, 26, 0.28);
+      background: rgba(26, 21, 16, 0.55);
+      padding: 2.3rem 2.9rem 2.6rem;
+      max-width: 552px;
+      width: 100%;
+    }
+
+    /* Label inside the box */
+    .cta-box-label {
+      font-family: var(--font-mono);
+      color: var(--ghost-light);
+      font-size: 0.9rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      opacity: 0.75;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Form — borderless-feeling, single bottom border as the visual container */
+    .cta-form {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid var(--streetlamp);
+    }
+
+    .cta-form input[type="email"] {
+      flex: 1;
+      min-width: 0;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--candleflame);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      padding: 0.7rem 0.75rem 0.7rem 0;
+      border-radius: 0;
+    }
+
+    .cta-form input[type="email"]::placeholder {
+      color: var(--smoke-grey);
+      opacity: 0.6;
+    }
+
+    .cta-form button {
+      flex-shrink: 0;
+      background: var(--streetlamp);
+      color: var(--bg);
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      padding: 0.7rem 1.3rem;
+      cursor: pointer;
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      transition: background-color 0.22s ease, color 0.22s ease;
+    }
+
+    .cta-form button:hover {
+      background: var(--ghost-light);
+      color: var(--bg);
+    }
+
+    /* =====================================================================
+       FOOTER
+       ===================================================================== */
+    footer {
+      padding: 3rem 1.5rem 4rem;
+      text-align: center;
+      border-top: 1px solid rgba(107, 42, 26, 0.22);
+    }
+
+    .footer-social {
+      font-family: var(--font-mono);
+      color: var(--ghost-light);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      opacity: 0.68;
+      margin-bottom: 1rem;
+    }
+
+    .footer-social a {
+      color: inherit;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .footer-social a:hover {
+      opacity: 1;
+    }
+
+    .footer-copyright {
+      font-family: var(--font-mono);
+      color: var(--smoke-grey);
+      font-size: 0.7rem;
+      letter-spacing: 0.13em;
+      opacity: 0.65;
+      margin-bottom: 0;
+    }
+
+    /* =====================================================================
+       FADE-UP ON SCROLL
+       .fade-up starts hidden; JS adds .visible via IntersectionObserver
+       ===================================================================== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ===================================================================
+       NAVIGATION
+       Fixed top-right. Smooth-scrolls to #about and #mailing-list.
+       ==================================================================== -->
+  <nav aria-label="Site navigation">
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#mailing-list">Mailing List</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- ===================================================================
+       HERO
+       Full-viewport cover art with title treatment and tagline overlaid
+       in the center of the image's left half (~25% from left edge).
+       ==================================================================== -->
+  <section id="hero" aria-label="Hero">
+    <div class="hero-image-wrapper">
+
+      <img
+        src="assets/playersguide-cover-final.jpg"
+        alt="Haunted — cover art"
+        class="hero-cover"
+      >
+
+      <!-- Vignette applied via .hero-image-wrapper::before in CSS -->
+
+      <div class="hero-overlay">
+        <img
+          src="assets/title-treatment.png"
+          alt="Haunted"
+          class="hero-title-img"
+        >
+        <p class="hero-tagline">
+          The case will break you. The past already has.
+          Play a troubled investigator in a world where the dead
+          don't stay quiet and neither do your mistakes.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ===================================================================
+       WHAT IS HAUNTED?
+       ==================================================================== -->
+  <hr class="section-rule">
+  <section id="about" aria-labelledby="about-heading">
+    <div class="section-inner fade-up">
+      <h2 id="about-heading">What is Haunted?</h2>
+      <p>
+        You are a detective in a city that smells like rain and something worse.
+        The ghosts are real — every medium on the corner will tell you that for
+        five dollars and a cold cup of coffee. The cults are real too, and the
+        thugs, and the darkness that lives at the back of every case you've
+        ever closed.
+      </p>
+      <p>
+        What you're carrying is real. That's the part they don't warn you about.
+        Every investigator in Haunted has a wound at their center — a moment
+        that broke something in the way they see the world. The case will keep
+        moving. The city won't slow down. But sooner or later, if you want to
+        be whole, you'll have to stop working long enough to go back to where
+        it started.
+      </p>
+      <p>
+        Haunted is a tabletop RPG of supernatural noir investigation. You and
+        your fellow investigators take on impossible cases, navigate a world
+        where the dead have opinions and the living have agendas, and try to
+        heal the thing that broke you before the next case does.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ===================================================================
+       THE FEEL — typographic case-file artifact
+       ==================================================================== -->
+  <hr class="section-rule">
+  <section id="feel" aria-labelledby="feel-heading">
+    <div class="section-inner fade-up">
+      <h2 id="feel-heading">The Feel</h2>
+      <p class="feel-label">In the register of</p>
+      <div class="touchstones" aria-label="Touchstones">
+        True Detective
+        <span class="sep" aria-hidden="true">✦</span>
+        Se7en
+        <span class="sep" aria-hidden="true">✦</span>
+        Prisoners
+        <span class="sep" aria-hidden="true">✦</span>
+        LA Confidential
+        <span class="sep" aria-hidden="true">✦</span>
+        Brick
+        <span class="sep" aria-hidden="true">✦</span>
+        Hellblazer
+        <span class="sep" aria-hidden="true">✦</span>
+        The Big Sleep
+      </div>
+      <p class="feel-closer">You know the feeling. We built a game around it.</p>
+    </div>
+  </section>
+
+
+  <!-- ===================================================================
+       MAILING LIST CTA
+       Form is intentionally non-functional.
+       ==================================================================== -->
+  <hr class="section-rule">
+  <section id="mailing-list" aria-labelledby="cta-heading">
+    <div class="section-inner fade-up">
+      <p class="cta-launch" id="cta-heading">BackerKit launching November 2026.</p>
+      <p class="cta-open">The case is still open.</p>
+
+      <!--
+        KIT INTEGRATION POINT
+        ~~~~~~~~~~~~~~~~~~~~~~
+        To wire up Kit (formerly ConvertKit):
+          1. Replace the <form> action with your Kit form endpoint URL.
+          2. Add Kit's required hidden fields (e.g. <input type="hidden" name="utf8" value="✓">).
+          3. Update the submit handler below to remove e.preventDefault() and
+             allow the form to POST, or use Kit's AJAX embed snippet instead.
+        See: https://developers.kit.com/docs/forms
+      -->
+      <div class="cta-box">
+        <p class="cta-box-label">Sign up to stay on the case</p>
+        <form class="cta-form" id="email-signup" novalidate>
+          <input
+            type="email"
+            name="email"
+            placeholder="your@email.com"
+            required
+            aria-label="Email address"
+            autocomplete="email"
+          >
+          <button type="submit">→</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ===================================================================
+       FOOTER
+       ==================================================================== -->
+  <footer>
+    <p class="footer-social">
+      <a href="https://instagram.com/hauntedrpg" target="_blank" rel="noopener noreferrer">@hauntedrpg on Instagram</a>
+      &nbsp;·&nbsp;
+      <a href="https://tiktok.com/@hauntedrpg" target="_blank" rel="noopener noreferrer">@hauntedrpg on TikTok</a>
+      &nbsp;·&nbsp;
+      <a href="https://x.com/RPGHaunted" target="_blank" rel="noopener noreferrer">@RPGHaunted on X</a>
+    </p>
+    <p class="footer-copyright">© 2026 Burzerkerr Studios LLC</p>
+  </footer>
+
+
+  <!-- ===================================================================
+       JAVASCRIPT
+       1. Fade-up on scroll via IntersectionObserver
+       2. Mailing list form placeholder handler
+       ==================================================================== -->
+  <script>
+    // --- Fade-up on scroll ---
+    const fadeTargets = document.querySelectorAll('.fade-up');
+    const fadeObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            fadeObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    fadeTargets.forEach((el) => fadeObserver.observe(el));
+
+    // --- Mailing list form — non-functional placeholder ---
+    // KIT INTEGRATION POINT: Remove e.preventDefault() and add Kit's
+    // submission logic here once the form action is configured above.
+    document.getElementById('email-signup').addEventListener('submit', function (e) {
+      e.preventDefault();
+      // TODO: replace with Kit form submission
+    });
+  </script>
+
+</body>
+</html>
