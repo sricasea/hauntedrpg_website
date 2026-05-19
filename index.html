@@ -417,6 +417,30 @@
     }
 
     /* =====================================================================
+       FORM FEEDBACK STATES
+       ===================================================================== */
+
+    /* Success — replaces the form inside .cta-box */
+    .cta-confirm {
+      font-family: var(--font-body);
+      font-style: italic;
+      color: var(--candleflame);
+      font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+      margin-bottom: 0;
+    }
+
+    /* Error — appears below the form */
+    .cta-error {
+      font-family: var(--font-mono);
+      color: var(--dried-blood);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      margin-top: 0.75rem;
+      margin-bottom: 0;
+      opacity: 0.9;
+    }
+
+    /* =====================================================================
        FADE-UP ON SCROLL
        .fade-up starts hidden; JS adds .visible via IntersectionObserver
        ===================================================================== */
@@ -550,22 +574,12 @@
       <p class="cta-launch" id="cta-heading">BackerKit launching November 2026.</p>
       <p class="cta-open">The case is still open.</p>
 
-      <!--
-        KIT INTEGRATION POINT
-        ~~~~~~~~~~~~~~~~~~~~~~
-        To wire up Kit (formerly ConvertKit):
-          1. Replace the <form> action with your Kit form endpoint URL.
-          2. Add Kit's required hidden fields (e.g. <input type="hidden" name="utf8" value="✓">).
-          3. Update the submit handler below to remove e.preventDefault() and
-             allow the form to POST, or use Kit's AJAX embed snippet instead.
-        See: https://developers.kit.com/docs/forms
-      -->
-      <div class="cta-box">
+      <div class="cta-box" id="cta-box">
         <p class="cta-box-label">Sign up to stay on the case</p>
         <form class="cta-form" id="email-signup" novalidate>
           <input
             type="email"
-            name="email"
+            name="email_address"
             placeholder="your@email.com"
             required
             aria-label="Email address"
@@ -615,12 +629,42 @@
     );
     fadeTargets.forEach((el) => fadeObserver.observe(el));
 
-    // --- Mailing list form — non-functional placeholder ---
-    // KIT INTEGRATION POINT: Remove e.preventDefault() and add Kit's
-    // submission logic here once the form action is configured above.
-    document.getElementById('email-signup').addEventListener('submit', function (e) {
+    // --- Mailing list form — POSTs to Kit ---
+    document.getElementById('email-signup').addEventListener('submit', async function (e) {
       e.preventDefault();
-      // TODO: replace with Kit form submission
+
+      const form = this;
+      const box  = document.getElementById('cta-box');
+      const email = form.querySelector('input[type="email"]').value.trim();
+
+      // Clear any previous error
+      const prev = form.querySelector('.cta-error');
+      if (prev) prev.remove();
+
+      // Disable while in flight
+      form.querySelector('button').disabled = true;
+
+      try {
+        const res = await fetch('https://app.kit.com/forms/9459188/subscriptions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          body: JSON.stringify({ email_address: email })
+        });
+
+        if (res.ok) {
+          // Swap the entire box contents for the confirmation line
+          box.innerHTML = '<p class="cta-confirm">You\'re on the case.</p>';
+        } else {
+          throw new Error('server');
+        }
+      } catch (_) {
+        // Re-enable and show inline error below the form
+        form.querySelector('button').disabled = false;
+        const err = document.createElement('p');
+        err.className = 'cta-error';
+        err.textContent = 'Something went wrong. Try again.';
+        form.insertAdjacentElement('afterend', err);
+      }
     });
   </script>
 
