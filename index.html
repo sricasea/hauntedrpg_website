@@ -3,7 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Haunted — Burzerkerr Studios LLC</title>
+  <meta name="description" content="Play a troubled detective working impossible cases in a city where the dead don't stay quiet — and neither do your mistakes. Launching on Gamefound, October 1.">
+  <link rel="canonical" href="https://hauntedrpg.com/">
+
+  <!-- Open Graph / link-preview cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Haunted">
+  <meta property="og:url" content="https://hauntedrpg.com/">
+  <meta property="og:title" content="Haunted — A Tabletop RPG of Supernatural Noir">
+  <meta property="og:description" content="Play a troubled detective working impossible cases in a city where the dead don't stay quiet — and neither do your mistakes. Launching on Gamefound, October 1.">
+  <meta property="og:image" content="https://hauntedrpg.com/assets/hero-haunted.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Haunted — A Tabletop RPG of Supernatural Noir">
+  <meta name="twitter:description" content="Play a troubled detective working impossible cases in a city where the dead don't stay quiet — and neither do your mistakes. Launching on Gamefound, October 1.">
+  <meta name="twitter:image" content="https://hauntedrpg.com/assets/hero-haunted.jpg">
+  <title>Haunted — A Tabletop RPG of Supernatural Noir | Burzerkerr Studios</title>
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '878081998717431');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=878081998717431&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -14,12 +42,13 @@
        COLOR + FONT TOKENS
        ===================================================================== */
     :root {
-      --bg:           #1A1510;
-      --candleflame:  #E8B86D;
-      --streetlamp:   #C47D1A;
-      --ghost-light:  #8EB8C4;
-      --dried-blood:  #6B2A1A;
-      --smoke-grey:   #4A5C5E;
+      --bg:           #0E0F1C;
+      --candleflame:  #CDD4DF;
+      --ghost-light:  #8FBBCF;
+      --dried-blood:  #3A3652;
+      --smoke-grey:   #5A6474;
+      --error:        #B5484A;
+      --magenta:      #D24F97;
 
       --font-body:    'IM Fell English', Georgia, serif;
       --font-heading: 'Anton SC', sans-serif;
@@ -99,83 +128,56 @@
     }
 
     /* =====================================================================
-       HERO — full viewport, image contained with letterboxing
+       HERO — full-bleed cover art (title is baked into the image)
        ===================================================================== */
     #hero {
+      position: relative;
       height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 100%;
       background: var(--bg);
       overflow: hidden;
-    }
-
-    /* Wrapper maintains the cover art's native aspect ratio.
-       Width is the smaller of 100vw and the height-constrained width,
-       so the image always fits inside the viewport without cropping. */
-    .hero-image-wrapper {
-      position: relative;
-      width: min(100vw, calc(100vh * var(--cover-ratio)));
-      aspect-ratio: 3508 / 2480;
-      flex-shrink: 0;
     }
 
     .hero-cover {
       display: block;
       width: 100%;
       height: 100%;
-      /* object-fit: fill is safe here because the wrapper
-         already has the correct aspect ratio */
-      object-fit: fill;
+      object-fit: cover;
+      object-position: center;
     }
 
-    /* Radial vignette — pseudo-element over the cover art */
-    .hero-image-wrapper::before {
+    /* Soft blend from the art into the page background at the bottom edge */
+    #hero::after {
       content: '';
       position: absolute;
       inset: 0;
-      z-index: 1;
       pointer-events: none;
-      background: radial-gradient(
-        ellipse at center,
-        transparent 38%,
-        rgba(26, 21, 16, 0.55) 100%
-      );
+      background: linear-gradient(to bottom, transparent 72%, var(--bg) 100%);
     }
 
-    /* Overlay container — centered on the left half of the image.
-       left: 25% = center of the 0–50% left region.
-       width: 46% keeps the content within the left half. */
-    .hero-overlay {
+    /* Scroll cue */
+    .hero-scroll {
       position: absolute;
+      left: 50%;
+      bottom: 1.6rem;
+      transform: translateX(-50%);
       z-index: 2;
-      left: 25%;
-      top: 25%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: clamp(0.25rem, 1.2vw, 1.25rem);
-      width: 46%;
-      text-align: center;
+      color: var(--ghost-light);
+      opacity: 0.55;
+      font-size: 1.4rem;
+      pointer-events: none;
     }
 
-    /* Title treatment PNG — 75% of the overlay container width */
-    .hero-title-img {
-      display: block;
-      max-width: 75%;
-      height: auto;
-    }
-
-    /* Tagline — IM Fell English italic, streetlamp (matches h2 headers) */
-    .hero-tagline {
+    /* About section lead — relocated hero tagline */
+    .about-lead {
       font-family: var(--font-body);
       font-style: italic;
-      color: var(--streetlamp);
-      font-size: clamp(0.5rem, 2.1vw, 1.9rem);
+      color: var(--ghost-light);
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
       line-height: 1.7;
-      max-width: 34ch;
-      margin: 0;
+      opacity: 0.92;
+      text-align: center;
+      margin-bottom: 1.5rem;
     }
 
     /* =====================================================================
@@ -201,7 +203,7 @@
        ===================================================================== */
     h2 {
       font-family: var(--font-heading);
-      color: var(--streetlamp);
+      color: var(--magenta);
       font-size: clamp(1.54rem, 2.86vw, 2.2rem);
       letter-spacing: 0.06em;
       text-align: center;
@@ -274,9 +276,9 @@
 
     /* Subtle background shift — slightly warmer and lighter than --bg */
     #mailing-list {
-      background-color: #211c16;
-      border-top: 1px solid rgba(107, 42, 26, 0.35);
-      border-bottom: 1px solid rgba(107, 42, 26, 0.35);
+      background-color: #16182B;
+      border-top: 1px solid rgba(58, 54, 82, 0.55);
+      border-bottom: 1px solid rgba(58, 54, 82, 0.55);
     }
 
     #mailing-list .section-inner {
@@ -286,7 +288,7 @@
     /* "BackerKit launching November 2026." — headline scale */
     .cta-launch {
       font-family: var(--font-heading);
-      color: var(--streetlamp);
+      color: var(--magenta);
       font-size: clamp(1.6rem, 3.2vw, 2.6rem);
       letter-spacing: 0.06em;
       margin-bottom: 0.75rem;
@@ -305,8 +307,8 @@
     /* Soft box wrapping the form — low-contrast border, gentle inset feel */
     .cta-box {
       display: inline-block;
-      border: 1px solid rgba(196, 125, 26, 0.28);
-      background: rgba(26, 21, 16, 0.55);
+      border: 1px solid rgba(210, 79, 151, 0.28);
+      background: rgba(14, 15, 28, 0.55);
       padding: 2.3rem 2.9rem 2.6rem;
       max-width: 552px;
       width: 100%;
@@ -327,7 +329,7 @@
     .cta-form {
       display: flex;
       align-items: stretch;
-      border-bottom: 1px solid var(--streetlamp);
+      border-bottom: 1px solid var(--magenta);
     }
 
     .cta-form input[type="email"] {
@@ -350,7 +352,7 @@
 
     .cta-form button {
       flex-shrink: 0;
-      background: var(--streetlamp);
+      background: var(--magenta);
       color: var(--bg);
       border: none;
       font-family: var(--font-body);
@@ -374,7 +376,7 @@
     footer {
       padding: 3rem 1.5rem 4rem;
       text-align: center;
-      border-top: 1px solid rgba(107, 42, 26, 0.22);
+      border-top: 1px solid rgba(58, 54, 82, 0.4);
     }
 
     .footer-social {
@@ -421,7 +423,7 @@
     /* Error — appears below the form */
     .cta-error {
       font-family: var(--font-mono);
-      color: var(--dried-blood);
+      color: var(--error);
       font-size: 0.78rem;
       letter-spacing: 0.1em;
       margin-top: 0.75rem;
@@ -445,6 +447,32 @@
     }
 
   </style>
+
+  <!-- Structured data — machine-readable facts for search + AI assistants -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://hauntedrpg.com/#studio",
+        "name": "Burzerkerr Studios LLC",
+        "url": "https://hauntedrpg.com/"
+      },
+      {
+        "@type": "CreativeWork",
+        "name": "Haunted",
+        "alternateName": "Haunted — The Roleplaying Game",
+        "genre": "Tabletop role-playing game",
+        "description": "A tabletop RPG of supernatural noir investigation. Play a troubled detective working impossible cases in a city where the dead don't stay quiet — and neither do your mistakes.",
+        "url": "https://hauntedrpg.com/",
+        "image": "https://hauntedrpg.com/assets/hero-haunted.jpg",
+        "datePublished": "2026-10-01",
+        "publisher": { "@id": "https://hauntedrpg.com/#studio" }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -465,31 +493,13 @@
        Full-viewport cover art with title treatment and tagline overlaid
        in the center of the image's left half (~25% from left edge).
        ==================================================================== -->
-  <section id="hero" aria-label="Hero">
-    <div class="hero-image-wrapper">
-
-      <img
-        src="assets/playersguide-cover-final.jpg"
-        alt="Haunted — cover art"
-        class="hero-cover"
-      >
-
-      <!-- Vignette applied via .hero-image-wrapper::before in CSS -->
-
-      <div class="hero-overlay">
-        <img
-          src="assets/title-treatment.png"
-          alt="Haunted"
-          class="hero-title-img"
-        >
-        <p class="hero-tagline">
-          The case will break you. The past already has.
-          Play a troubled investigator in a world where the dead
-          don't stay quiet and neither do your mistakes.
-        </p>
-      </div>
-
-    </div>
+  <section id="hero" aria-label="Haunted — the roleplaying game">
+    <img
+      src="assets/hero-haunted.jpg"
+      alt="Haunted — the roleplaying game. An investigator stands before a wall of case files, photographs, and evidence connected by glowing threads."
+      class="hero-cover"
+    >
+    <span class="hero-scroll" aria-hidden="true">▾</span>
   </section>
 
 
@@ -499,6 +509,11 @@
   <hr class="section-rule">
   <section id="about" aria-labelledby="about-heading">
     <div class="section-inner fade-up">
+      <p class="about-lead">
+        The case will break you. The past already has. Play a troubled
+        investigator in a world where the dead don't stay quiet — and neither
+        do your mistakes.
+      </p>
       <h2 id="about-heading">What is Haunted?</h2>
       <p>
         You are a detective in a city that smells like rain and something worse.
@@ -560,7 +575,7 @@
   <hr class="section-rule">
   <section id="mailing-list" aria-labelledby="cta-heading">
     <div class="section-inner fade-up">
-      <p class="cta-launch" id="cta-heading">BackerKit launching November 2026.</p>
+      <p class="cta-launch" id="cta-heading">Launching on Gamefound — October 1, 2026.</p>
       <p class="cta-open">The case is still open.</p>
 
       <div class="cta-box" id="cta-box">
@@ -591,7 +606,7 @@
       &nbsp;·&nbsp;
       <a href="https://tiktok.com/@hauntedrpg" target="_blank" rel="noopener noreferrer">@hauntedrpg on TikTok</a>
       &nbsp;·&nbsp;
-      <a href="https://x.com/RPGHaunted" target="_blank" rel="noopener noreferrer">@RPGHaunted on X</a>
+      <a href="https://bsky.app/profile/hauntedrpg.bsky.social" target="_blank" rel="noopener noreferrer">@hauntedrpg.bsky.social on Bluesky</a>
     </p>
     <p class="footer-copyright">© 2026 Burzerkerr Studios LLC</p>
   </footer>
@@ -643,6 +658,7 @@
         if (res.ok) {
           // Swap the entire box contents for the confirmation line
           box.innerHTML = '<p class="cta-confirm">You\'re on the case.</p>';
+          if (window.fbq) fbq('track', 'Lead');
         } else {
           throw new Error('server');
         }

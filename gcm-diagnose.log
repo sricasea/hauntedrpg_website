@@ -1,0 +1,206 @@
+﻿Diagnose log at 2026-05-17T22:48:25Z
+
+AppPath: C:\Program Files\Git\mingw64\bin\git-credential-manager.exe
+InstallDir: C:\Program Files\Git\mingw64\bin\
+Version: 2.7.3+5fa7116896c82164996a609accd1c5ad90fe730a
+
+------------
+Diagnostic: Environment
+Skipped: False
+Success: True
+Exception: None
+Log:
+OSType: Windows
+OSVersion: 10.0 (build 26200)
+Reading environment variables... OK
+ Variables:
+SESSIONNAME=Console
+OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=delta
+MSYSTEM=MINGW64
+ProgramW6432=C:\Program Files
+EXEPATH=C:\Program Files\Git\bin
+ChocolateyInstall=C:\ProgramData\chocolatey
+PROCESSOR_IDENTIFIER=AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD
+TMP=C:\Users\srica\AppData\Local\Temp
+PROCESSOR_ARCHITECTURE=AMD64
+CURL_CA_BUNDLE=C:\Program Files\PostgreSQL\17\ssl\certs\ca-bundle.crt
+PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW
+ProgramData=C:\ProgramData
+USERPROFILE=C:\Users\srica
+POSTGIS_GDAL_ENABLED_DRIVERS=GTiff PNG JPEG GIF XYZ DTED USGSDEM AAIGrid
+PROCESSOR_REVISION=2102
+CLAUDE_CODE_EXECPATH=C:\Program Files\nodejs\node.exe
+ChocolateyLastPathUpdate=134195553338388226
+FPS_BROWSER_APP_PROFILE_STRING=Internet Explorer
+FPS_BROWSER_USER_PROFILE_STRING=Default
+LOGONSERVER=\\SUSURRANCE
+TEMP=C:\Users\srica\AppData\Local\Temp
+POSTGIS_ENABLE_OUTDB_RASTERS=1
+SHELL=C:\Program Files\Git\bin\bash.exe
+CLAUDE_CODE_ENTRYPOINT=cli
+GIT_EXEC_PATH=C:/Program Files/Git/mingw64/libexec/git-core
+GDAL_DATA=C:\Program Files\PostgreSQL\17\gdal-data
+PLINK_PROTOCOL=ssh
+COMMONPROGRAMFILES=C:\Program Files\Common Files
+_=C:/Program Files/Git/mingw64/bin/git
+NoDefaultCurrentDirectoryInExePath=1
+OneDrive=C:\Users\srica\OneDrive
+PATH=C:/Program Files/Git/mingw64/libexec/git-core;C:\Users\srica\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\srica\bin;C:\Python314\Scripts;C:\Python314;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\dotnet;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Users\srica\AppData\Local\Programs\Python\Python311\Scripts;C:\Users\srica\AppData\Local\Programs\Python\Python311;C:\Users\srica\AppData\Local\Microsoft\WindowsApps;C:\Users\srica\AppData\Local\GitHubDesktop\bin;C:\Users\srica\AppData\Roaming\npm;C:\Users\srica\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1-full_build\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl;C:\Users\srica\.claude\plugins\cache\marketingskills\marketing-skills\7c8c087486c2\bin
+EFC_9796_3789132940=1
+CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files
+CLAUDE_CODE_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe
+PROCESSOR_LEVEL=25
+EFC_9796_1592913036=1
+LC_CTYPE=C.UTF-8
+HOMEPATH=\Users\srica
+EFC_9796_2775293581=1
+WINDIR=C:\WINDOWS
+EFC_9796_344590478=1
+ALLUSERSPROFILE=C:\ProgramData
+CommonProgramW6432=C:\Program Files\Common Files
+USERNAME=srica
+SYSTEMROOT=C:\WINDOWS
+TERM=xterm-256color
+COREPACK_ENABLE_AUTO_PIN=0
+PROGRAMFILES=C:\Program Files
+SHLVL=1
+EFC_9796_2283032206=1
+DriverData=C:\Windows\System32\Drivers\DriverData
+HOMEDRIVE=C:
+GIT_TRACE2_PARENT_SID=5722f75c-b9f7-4966-9a34-b0ea084a9529
+NUMBER_OF_PROCESSORS=16
+OS=Windows_NT
+GIT_EDITOR=true
+OPENSSL_CONF=C:\Program Files\PostgreSQL\psqlODBC\etc\openssl.cnf
+HOME=C:\Users\srica
+PSModulePath=C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules;C:\Program Files\Intel\Wired Networking\
+ProgramFiles(x86)=C:\Program Files (x86)
+SYSTEMDRIVE=C:
+PROMPT=$P$G
+TMPDIR=C:\Users\srica\AppData\Local\Temp
+APPDATA=C:\Users\srica\AppData\Roaming
+USERDOMAIN=SUSURRANCE
+COMPUTERNAME=SUSURRANCE
+PWD=C:/Users/srica/Documents/GitHub/hauntedrpg-website
+LOCALAPPDATA=C:\Users\srica\AppData\Local
+EFC_9796_1262719628=1
+COMSPEC=C:\WINDOWS\system32\cmd.exe
+CLAUDECODE=1
+__PSLockDownPolicy=0
+USERDOMAIN_ROAMINGPROFILE=SUSURRANCE
+PROJ_LIB=C:\Program Files\PostgreSQL\17\share\contrib\postgis-3.5\proj
+PUBLIC=C:\Users\Public
+
+
+------------
+Diagnostic: File system
+Skipped: False
+Success: True
+Exception: None
+Log:
+Temporary directory is 'C:\Users\srica\AppData\Local\Temp\'...
+Checking basic file I/O...
+Writing to temporary file 'C:\Users\srica\AppData\Local\Temp\f36549e6a73bac117aafe953'... OK
+Reading from temporary file 'C:\Users\srica\AppData\Local\Temp\f36549e6a73bac117aafe953'... OK
+Deleting temporary file 'C:\Users\srica\AppData\Local\Temp\f36549e6a73bac117aafe953'... OK
+Testing IFileSystem instance...
+UserHomePath: C:\Users\srica
+UserDataDirectoryPath: C:\Users\srica\.gcm
+GetCurrentDirectory(): C:\Users\srica\Documents\GitHub\hauntedrpg-website
+
+------------
+Diagnostic: Networking
+Skipped: False
+Success: True
+Exception: None
+Log:
+Checking networking and HTTP stack...
+Creating HTTP client... OK
+IsNetworkAvailable: True
+Sending HEAD request to http://example.com...Sending HEAD request to https://example.com... OK
+ OK
+Acquiring free TCP port... OK
+Testing local HTTP loopback connections...
+Creating new HTTP listener for http://localhost:51659/... OK
+Waiting for loopback connection... OK
+Writing response... OK
+Waiting for response data... OK
+Loopback connection data OK
+
+------------
+Diagnostic: Git
+Skipped: False
+Success: True
+Exception: None
+Log:
+Getting Git version... OK
+Git version is '2.53.0.windows.2'
+Locating current repository...Git repository at 'C:/Users/srica/Documents/GitHub/hauntedrpg-website/.git'
+ OK
+Listing all Git configuration... OK
+Git configuration:
+file:C:/Program Files/Git/etc/gitconfig	diff.astextplain.textconv=astextplain
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.clean=git-lfs clean -- %f
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.smudge=git-lfs smudge -- %f
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.process=git-lfs filter-process
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.required=true
+file:C:/Program Files/Git/etc/gitconfig	http.sslbackend=schannel
+file:C:/Program Files/Git/etc/gitconfig	core.autocrlf=true
+file:C:/Program Files/Git/etc/gitconfig	core.fscache=true
+file:C:/Program Files/Git/etc/gitconfig	core.symlinks=false
+file:C:/Program Files/Git/etc/gitconfig	pull.rebase=false
+file:C:/Program Files/Git/etc/gitconfig	credential.helper=manager
+file:C:/Program Files/Git/etc/gitconfig	credential.https://dev.azure.com.usehttppath=true
+file:C:/Program Files/Git/etc/gitconfig	init.defaultbranch=master
+file:C:/Users/srica/.gitconfig	filter.lfs.clean=git-lfs clean -- %f
+file:C:/Users/srica/.gitconfig	filter.lfs.smudge=git-lfs smudge -- %f
+file:C:/Users/srica/.gitconfig	filter.lfs.process=git-lfs filter-process
+file:C:/Users/srica/.gitconfig	filter.lfs.required=true
+file:C:/Users/srica/.gitconfig	user.name=Geneva Burleigh
+file:C:/Users/srica/.gitconfig	user.email=sricasea@gmail.com
+file:.git/config	core.repositoryformatversion=0
+file:.git/config	core.filemode=false
+file:.git/config	core.bare=false
+file:.git/config	core.logallrefupdates=true
+file:.git/config	core.symlinks=false
+file:.git/config	core.ignorecase=true
+file:.git/config	lfs.repositoryformatversion=0
+file:.git/config	remote.origin.url=https://github.com/sricasea/hauntedrpg-website.git
+file:.git/config	remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+
+
+------------
+Diagnostic: Credential storage
+Skipped: False
+Success: True
+Exception: None
+Log:
+ICredentialStore instance is of type: CredentialStore
+Writing test credential... OK
+Reading test credential... OK
+Deleting test credential... OK
+
+------------
+Diagnostic: Microsoft authentication (AAD/MSA)
+Skipped: False
+Success: True
+Exception: None
+Log:
+Broker is not enabled.
+Flow type is: Auto
+Gathering MSAL token cache data... OK
+CacheDirectory: C:\Users\srica\AppData\Local\.IdentityService
+CacheFileName: msal.cache
+CacheFilePath: C:\Users\srica\AppData\Local\.IdentityService\msal.cache
+Creating cache helper... OK
+Verifying MSAL token cache persistence... OK
+
+------------
+Diagnostic: GitHub API
+Skipped: False
+Success: True
+Exception: None
+Log:
+Using 'https://github.com/' as API target.
+Querying '/meta' endpoint... OK
+
