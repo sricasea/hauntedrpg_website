@@ -128,6 +128,49 @@
     }
 
     /* =====================================================================
+       TOP SIGN-UP BANNER — same signup form, second placement
+       ===================================================================== */
+    .signup-banner {
+      position: relative;
+      z-index: 50;
+      width: 100%;
+      background: #16182B;
+      border-bottom: 1px solid rgba(58, 54, 82, 0.55);
+    }
+
+    .signup-banner-inner {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .signup-banner-label {
+      font-family: var(--font-mono);
+      color: var(--ghost-light);
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin: 0;
+    }
+
+    .signup-banner .cta-form {
+      width: 320px;
+      max-width: 100%;
+    }
+
+    .signup-banner .cta-confirm,
+    .signup-banner .cta-confirm-follow {
+      text-align: center;
+      margin: 0;
+    }
+
+    /* =====================================================================
        HERO — full-bleed cover art (title is baked into the image)
        ===================================================================== */
     #hero {
@@ -370,6 +413,39 @@
       color: var(--bg);
     }
 
+    /* Secondary CTA — follow on Gamefound */
+    .gf-follow {
+      display: inline-block;
+      margin-top: 1.7rem;
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      letter-spacing: 0.03em;
+      color: var(--ghost-light);
+      text-decoration: none;
+      border: 1px solid rgba(143, 187, 207, 0.5);
+      border-radius: 2px;
+      padding: 0.65rem 1.4rem;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .gf-follow:hover {
+      background: var(--ghost-light);
+      color: var(--bg);
+    }
+
+    /* Post-signup follow nudge */
+    .cta-confirm-follow {
+      margin-top: 1rem;
+      margin-bottom: 0;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+    }
+    .cta-confirm-follow a {
+      color: var(--ghost-light);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(143, 187, 207, 0.45);
+    }
+
     /* =====================================================================
        FOOTER
        ===================================================================== */
@@ -477,6 +553,27 @@
 <body>
 
   <!-- ===================================================================
+       TOP SIGN-UP BANNER — same signup form, second placement
+       ==================================================================== -->
+  <div class="signup-banner">
+    <div class="signup-banner-inner signup-target">
+      <span class="signup-banner-label">Get on the case before launch</span>
+      <form class="cta-form" novalidate>
+        <input
+          type="email"
+          name="email_address"
+          placeholder="your@email.com"
+          required
+          aria-label="Email address"
+          autocomplete="email"
+        >
+        <button type="submit">→</button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ===================================================================
        NAVIGATION
        Fixed top-right. Smooth-scrolls to #about and #mailing-list.
        ==================================================================== -->
@@ -578,7 +675,7 @@
       <p class="cta-launch" id="cta-heading">Launching on Gamefound — October 1, 2026.</p>
       <p class="cta-open">The case is still open.</p>
 
-      <div class="cta-box" id="cta-box">
+      <div class="cta-box signup-target" id="cta-box">
         <p class="cta-box-label">Sign up to stay on the case</p>
         <form class="cta-form" id="email-signup" novalidate>
           <input
@@ -592,6 +689,8 @@
           <button type="submit">→</button>
         </form>
       </div>
+
+      <a class="gf-follow" href="https://gamefound.com/en/projects/burzerkerr-studios/haunted" target="_blank" rel="noopener noreferrer">Follow the case on Gamefound →</a>
 
     </div>
   </section>
@@ -633,43 +732,55 @@
     );
     fadeTargets.forEach((el) => fadeObserver.observe(el));
 
-    // --- Mailing list form — POSTs to Kit ---
-    document.getElementById('email-signup').addEventListener('submit', async function (e) {
-      e.preventDefault();
+    // --- Mailing list signup — POSTs to Kit, then hands the visitor to Gamefound ---
+    const GAMEFOUND_URL = 'https://gamefound.com/en/projects/burzerkerr-studios/haunted';
 
-      const form = this;
-      const box  = document.getElementById('cta-box');
-      const email = form.querySelector('input[type="email"]').value.trim();
+    document.querySelectorAll('.cta-form').forEach(function (form) {
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-      // Clear any previous error
-      const prev = form.querySelector('.cta-error');
-      if (prev) prev.remove();
+        const slot  = form.closest('.signup-target');
+        const email = form.querySelector('input[type="email"]').value.trim();
+        const btn   = form.querySelector('button');
 
-      // Disable while in flight
-      form.querySelector('button').disabled = true;
+        // Clear any previous error
+        const prev = form.parentNode.querySelector('.cta-error');
+        if (prev) prev.remove();
 
-      try {
-        const res = await fetch('https://app.kit.com/forms/9459188/subscriptions', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json; charset=utf-8' },
-          body: JSON.stringify({ email_address: email })
-        });
+        btn.disabled = true;
 
-        if (res.ok) {
-          // Swap the entire box contents for the confirmation line
-          box.innerHTML = '<p class="cta-confirm">You\'re on the case.</p>';
-          if (window.fbq) fbq('track', 'Lead');
-        } else {
-          throw new Error('server');
+        try {
+          const res = await fetch('https://app.kit.com/forms/9459188/subscriptions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json; charset=utf-8' },
+            body: JSON.stringify({ email_address: email })
+          });
+
+          if (res.ok) {
+            // Fire both signals, confirm briefly, then hand off to Gamefound (same tab)
+            if (window.fbq) { fbq('track', 'Lead'); fbq('trackCustom', 'GamefoundClick'); }
+            if (slot) {
+              slot.innerHTML = '<p class="cta-confirm">You\'re on the case — taking you to Gamefound…</p>'
+                + '<p class="cta-confirm-follow"><a href="' + GAMEFOUND_URL + '">Go now →</a></p>';
+            }
+            setTimeout(function () { window.location.href = GAMEFOUND_URL; }, 1200);
+          } else {
+            throw new Error('server');
+          }
+        } catch (_) {
+          btn.disabled = false;
+          const err = document.createElement('p');
+          err.className = 'cta-error';
+          err.textContent = 'Something went wrong. Try again.';
+          form.insertAdjacentElement('afterend', err);
         }
-      } catch (_) {
-        // Re-enable and show inline error below the form
-        form.querySelector('button').disabled = false;
-        const err = document.createElement('p');
-        err.className = 'cta-error';
-        err.textContent = 'Something went wrong. Try again.';
-        form.insertAdjacentElement('afterend', err);
-      }
+      });
+    });
+
+    // --- Track outbound clicks to Gamefound as a custom conversion signal ---
+    document.addEventListener('click', function (e) {
+      const link = e.target.closest('a[href*="gamefound.com"]');
+      if (link && window.fbq) fbq('trackCustom', 'GamefoundClick');
     });
   </script>
 
