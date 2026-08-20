@@ -19,19 +19,7 @@
   <meta name="twitter:image" content="https://hauntedrpg.com/assets/hero-haunted.jpg">
   <title>Haunted — A Tabletop RPG of Supernatural Noir | Burzerkerr Studios</title>
 
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-  document,'script','https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '878081998717431');
-  fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=878081998717431&ev=PageView&noscript=1"/></noscript>
-  <!-- End Meta Pixel Code -->
+  <!-- Meta Pixel loads only after cookie consent (GDPR/ePrivacy) — see the consent script at the end of <body>. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -546,6 +534,80 @@
       transform: translateY(0);
     }
 
+    /* =====================================================================
+       COOKIE CONSENT BANNER (gates the Meta pixel until the visitor accepts)
+       ===================================================================== */
+    .cookie-banner {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 200;
+      background: #16182B;
+      border-top: 1px solid var(--magenta);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .cookie-banner[hidden] { display: none; }
+
+    .cookie-text {
+      font-family: var(--font-body);
+      color: var(--candleflame);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin: 0;
+      max-width: 620px;
+    }
+
+    .cookie-text a { color: var(--ghost-light); }
+
+    .cookie-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .cookie-btn {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      padding: 0.55rem 1.35rem;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .cookie-btn:hover { opacity: 0.85; }
+
+    .cookie-accept {
+      background: var(--magenta);
+      color: var(--bg);
+      border: none;
+    }
+
+    .cookie-decline {
+      background: transparent;
+      color: var(--ghost-light);
+      border: 1px solid rgba(143, 187, 207, 0.5);
+    }
+
+    .footer-legal {
+      font-family: var(--font-mono);
+      color: var(--smoke-grey);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+      margin-top: 0.5rem;
+      margin-bottom: 0;
+    }
+
+    .footer-legal a { color: var(--ghost-light); text-decoration: none; }
+    .footer-legal a:hover { text-decoration: underline; }
+
   </style>
 
   <!-- Structured data — machine-readable facts for search + AI assistants -->
@@ -732,7 +794,22 @@
       <a href="https://bsky.app/profile/hauntedrpg.bsky.social" target="_blank" rel="noopener noreferrer">@hauntedrpg.bsky.social on Bluesky</a>
     </p>
     <p class="footer-copyright">© 2026 Burzerkerr Studios LLC</p>
+    <p class="footer-legal"><a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="#" id="cookie-reset">Cookie choices</a></p>
   </footer>
+
+
+  <!-- ===================================================================
+       COOKIE CONSENT BANNER — gates the Meta pixel until the visitor accepts
+       ==================================================================== -->
+  <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Cookie consent" hidden>
+    <p class="cookie-text">
+      We use a Meta pixel and cookies to measure our ads and find fellow investigators. Your call — nothing loads until you say so. <a href="privacy.html">Privacy Policy</a>
+    </p>
+    <div class="cookie-actions">
+      <button type="button" class="cookie-btn cookie-decline" id="cookie-decline">Decline</button>
+      <button type="button" class="cookie-btn cookie-accept" id="cookie-accept">Accept</button>
+    </div>
+  </div>
 
 
   <!-- ===================================================================
@@ -806,6 +883,53 @@
       const link = e.target.closest('a[href*="gamefound.com"]');
       if (link && window.fbq) fbq('trackCustom', 'GamefoundClick');
     });
+
+    // --- Cookie consent — the Meta pixel loads ONLY after the visitor accepts ---
+    (function () {
+      const PIXEL_ID = '878081998717431';
+
+      function loadMetaPixel() {
+        if (window.fbq) return;
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+        document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', PIXEL_ID);
+        fbq('track', 'PageView');
+      }
+
+      const banner = document.getElementById('cookie-banner');
+      let choice = null;
+      try { choice = localStorage.getItem('hr_cookie_consent'); } catch (_) {}
+
+      if (choice === 'accepted') {
+        loadMetaPixel();
+      } else if (choice !== 'declined' && banner) {
+        banner.hidden = false;
+      }
+
+      const accept = document.getElementById('cookie-accept');
+      const decline = document.getElementById('cookie-decline');
+      const reset = document.getElementById('cookie-reset');
+
+      if (accept) accept.addEventListener('click', function () {
+        try { localStorage.setItem('hr_cookie_consent', 'accepted'); } catch (_) {}
+        if (banner) banner.hidden = true;
+        loadMetaPixel();
+      });
+
+      if (decline) decline.addEventListener('click', function () {
+        try { localStorage.setItem('hr_cookie_consent', 'declined'); } catch (_) {}
+        if (banner) banner.hidden = true;
+      });
+
+      if (reset) reset.addEventListener('click', function (e) {
+        e.preventDefault();
+        try { localStorage.removeItem('hr_cookie_consent'); } catch (_) {}
+        location.reload();
+      });
+    })();
   </script>
 
 </body>
