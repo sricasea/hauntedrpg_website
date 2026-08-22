@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Flag JS as available BEFORE styles apply, so the fade-up animation only
+       hides content when JS can actually reveal it again. No-JS/failed-JS
+       visitors keep full content visible. -->
+  <script>document.documentElement.className += ' js';</script>
   <meta name="description" content="Play a troubled detective working impossible cases in a city where the dead don't stay quiet — and neither do your mistakes. Launching on Gamefound, October 1.">
   <link rel="canonical" href="https://hauntedrpg.com/">
 
@@ -57,6 +61,20 @@
 
     html {
       scroll-behavior: smooth;
+    }
+
+    /* Present for screen readers and search/AI crawlers; the visible title
+       treatment lives in the hero artwork. */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     body {
@@ -221,6 +239,17 @@
       opacity: 0.55;
       font-size: 1.4rem;
       pointer-events: none;
+    }
+
+    /* Mobile: show the full cover art so the HAUNTED wordmark and the whole
+       composition land in the first screen, instead of a forced 100vh crop
+       that pushes the title below the fold. */
+    @media (max-width: 768px) {
+      #hero { height: auto; }
+      .hero-cover { height: auto; }
+      /* The bottom fade assumes a full-bleed hero; on the full-art mobile
+         view it would wash out the wordmark, so drop it here. */
+      #hero::after { display: none; }
     }
 
     /* About section lead — relocated hero tagline */
@@ -523,7 +552,10 @@
        FADE-UP ON SCROLL
        .fade-up starts hidden; JS adds .visible via IntersectionObserver
        ===================================================================== */
-    .fade-up {
+    /* Content is visible by default. The hidden starting state applies ONLY
+       when JS is running (html.js), so a slow or failed script can never leave
+       the page blank for a real visitor. */
+    .js .fade-up {
       opacity: 0;
       transform: translateY(24px);
       transition: opacity 0.75s ease, transform 0.75s ease;
@@ -532,6 +564,15 @@
     .fade-up.visible {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* Respect reduced-motion: show everything, skip the animation entirely. */
+    @media (prefers-reduced-motion: reduce) {
+      .js .fade-up {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
     }
 
     /* =====================================================================
@@ -677,6 +718,7 @@
        in the center of the image's left half (~25% from left edge).
        ==================================================================== -->
   <section id="hero" aria-label="Haunted — the roleplaying game">
+    <h1 class="visually-hidden">Haunted — A Tabletop RPG of Supernatural Noir</h1>
     <img
       src="assets/hero-haunted.jpg"
       alt="Haunted — the roleplaying game. An investigator stands before a wall of case files, photographs, and evidence connected by glowing threads."
@@ -818,20 +860,31 @@
        2. Mailing list form placeholder handler
        ==================================================================== -->
   <script>
-    // --- Fade-up on scroll ---
+    // --- Fade-up on scroll (progressive enhancement) ---
     const fadeTargets = document.querySelectorAll('.fade-up');
-    const fadeObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            fadeObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-    fadeTargets.forEach((el) => fadeObserver.observe(el));
+    if ('IntersectionObserver' in window) {
+      const fadeObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              fadeObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+      fadeTargets.forEach((el) => fadeObserver.observe(el));
+      // Safety net: if the observer never fires (odd viewport, tooling, etc.),
+      // reveal anything still hidden after 3s so content is never stuck blank.
+      setTimeout(() => {
+        document.querySelectorAll('.fade-up:not(.visible)')
+          .forEach((el) => el.classList.add('visible'));
+      }, 3000);
+    } else {
+      // No IntersectionObserver support — just show everything.
+      fadeTargets.forEach((el) => el.classList.add('visible'));
+    }
 
     // --- Mailing list signup — POSTs to Kit, then hands the visitor to Gamefound ---
     const GAMEFOUND_URL = 'https://gamefound.com/en/projects/burzerkerr-studios/haunted';
