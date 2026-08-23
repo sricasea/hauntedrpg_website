@@ -7,7 +7,7 @@
        hides content when JS can actually reveal it again. No-JS/failed-JS
        visitors keep full content visible. -->
   <script>document.documentElement.className += ' js';</script>
-  <meta name="description" content="Play a troubled detective working impossible cases in a city where the dead don't stay quiet — and neither do your mistakes. Launching on Gamefound, October 1.">
+  <meta name="description" content="Play a troubled detective working impossible cases in a city where the dead don't stay quiet — and neither do your mistakes. On Gamefound, October 1.">
   <link rel="canonical" href="https://hauntedrpg.com/">
 
   <!-- Open Graph / link-preview cards -->
@@ -26,6 +26,8 @@
   <!-- Meta Pixel loads only after cookie consent (GDPR/ePrivacy) — see the consent script at the end of <body>. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+  <link rel="preconnect" href="https://p.typekit.net" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://use.typekit.net/miv0ffy.css">
   <link rel="stylesheet" href="assets/styles.css">
@@ -39,18 +41,44 @@
         "@type": "Organization",
         "@id": "https://hauntedrpg.com/#studio",
         "name": "Burzerkerr Studios LLC",
-        "url": "https://hauntedrpg.com/"
+        "url": "https://hauntedrpg.com/",
+        "sameAs": [
+          "https://instagram.com/hauntedrpg",
+          "https://tiktok.com/@hauntedrpg",
+          "https://bsky.app/profile/hauntedrpg.bsky.social"
+        ]
       },
       {
-        "@type": "CreativeWork",
+        "@type": "Game",
+        "@id": "https://hauntedrpg.com/#game",
         "name": "Haunted",
         "alternateName": "Haunted — The Roleplaying Game",
         "genre": "Tabletop role-playing game",
         "description": "A tabletop RPG of supernatural noir investigation. Play a troubled detective working impossible cases in a city where the dead don't stay quiet — and neither do your mistakes.",
         "url": "https://hauntedrpg.com/",
         "image": "https://hauntedrpg.com/assets/hero-haunted.jpg",
-        "datePublished": "2026-10-01",
-        "publisher": { "@id": "https://hauntedrpg.com/#studio" }
+        "inLanguage": "en",
+        "creator": { "@id": "https://hauntedrpg.com/#studio" },
+        "publisher": { "@id": "https://hauntedrpg.com/#studio" },
+        "sameAs": [
+          "https://gamefound.com/en/projects/burzerkerr-studios/haunted"
+        ]
+      },
+      {
+        "@type": "Event",
+        "@id": "https://hauntedrpg.com/#launch-event",
+        "name": "Haunted — Gamefound Campaign Launch",
+        "description": "Crowdfunding campaign launch for Haunted, a tabletop RPG of supernatural noir investigation, on Gamefound.",
+        "startDate": "2026-10-01",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+        "location": {
+          "@type": "VirtualLocation",
+          "url": "https://gamefound.com/en/projects/burzerkerr-studios/haunted"
+        },
+        "organizer": { "@id": "https://hauntedrpg.com/#studio" },
+        "about": { "@id": "https://hauntedrpg.com/#game" },
+        "url": "https://hauntedrpg.com/"
       }
     ]
   }
@@ -98,11 +126,25 @@
        ==================================================================== -->
   <section id="hero" aria-label="Haunted — the roleplaying game">
     <h1 class="visually-hidden">Haunted — A Tabletop RPG of Supernatural Noir</h1>
-    <img
-      src="assets/hero-haunted.jpg"
-      alt="Haunted — the roleplaying game. An investigator stands before a wall of case files, photographs, and evidence connected by glowing threads."
-      class="hero-cover"
-    >
+    <picture>
+      <source
+        type="image/avif"
+        srcset="assets/hero-haunted-1024.avif 1024w, assets/hero-haunted-1600.avif 1600w, assets/hero-haunted-2400.avif 2400w"
+        sizes="100vw">
+      <source
+        type="image/webp"
+        srcset="assets/hero-haunted-1024.webp 1024w, assets/hero-haunted-1600.webp 1600w, assets/hero-haunted-2400.webp 2400w"
+        sizes="100vw">
+      <img
+        src="assets/hero-haunted.jpg"
+        alt="Haunted — the roleplaying game. An investigator stands before a wall of case files, photographs, and evidence connected by glowing threads."
+        class="hero-cover"
+        width="2560"
+        height="1440"
+        fetchpriority="high"
+        decoding="async"
+      >
+    </picture>
     <span class="hero-scroll" aria-hidden="true">▾</span>
   </section>
 

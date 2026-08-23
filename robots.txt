@@ -1,0 +1,36 @@
+# hauntedrpg.com
+# Open to all crawlers, including AI search / answer engines — we WANT
+# Haunted to be discoverable and citable ahead of the Oct 1 launch.
+
+User-agent: *
+Allow: /
+
+# AI search / answer engines — explicitly welcome.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# To opt OUT of AI *training* crawlers while keeping the search/answer bots
+# above, uncomment the block below:
+# User-agent: CCBot
+# Disallow: /
+# User-agent: anthropic-ai
+# Disallow: /
+# User-agent: cohere-ai
+# Disallow: /
+
+Sitemap: https://hauntedrpg.com/sitemap.xml
