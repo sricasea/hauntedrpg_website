@@ -617,4 +617,53 @@
     .footer-legal a { color: var(--ghost-light); text-decoration: none; }
     .footer-legal a:hover { text-decoration: underline; }
 
+    /* =====================================================================
+       THE BASICS — spec strip (case-file register)
+       ===================================================================== */
+    #basics .section-inner { text-align: center; }
+
+    .spec-list {
+      max-width: 520px;
+      margin: 0 auto;
+      font-family: var(--font-mono);
+      text-align: left;
+    }
+
+    .spec-list > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1.5rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--dried-blood);
+    }
+
+    .spec-list > div:last-child { border-bottom: none; }
+
+    .spec-list dt {
+      color: var(--smoke-grey);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.72rem;
+      white-space: nowrap;
+    }
+
+    .spec-list dd {
+      color: var(--ghost-light);
+      font-size: 0.92rem;
+      letter-spacing: 0.03em;
+      text-align: right;
+    }
+
+    /* =====================================================================
+       WHO'S MAKING THIS
+       ===================================================================== */
+    .makers-ai {
+      font-style: italic;
+      color: var(--ghost-light);
+      border-left: 2px solid var(--magenta);
+      padding-left: 1.1rem;
+      margin-top: 1.75rem;
+    }
+
   
