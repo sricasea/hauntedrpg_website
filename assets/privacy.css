@@ -1,0 +1,40 @@
+    :root {
+      --bg:           #0E0F1C;
+      --candleflame:  #CDD4DF;
+      --ghost-light:  #8FBBCF;
+      --magenta:      #D24F97;
+      --smoke-grey:   #5A6474;
+      --font-body:    'IM Fell English', Georgia, serif;
+      --font-heading: 'Anton SC', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--candleflame);
+      font-family: var(--font-body);
+      line-height: 1.75;
+      padding: 4rem 1.5rem 6rem;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; }
+    h1 {
+      font-family: var(--font-heading);
+      color: var(--magenta);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.5rem;
+    }
+    .updated { color: var(--smoke-grey); font-size: 0.9rem; margin-bottom: 2.5rem; }
+    h2 {
+      font-family: var(--font-heading);
+      color: var(--ghost-light);
+      font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+      letter-spacing: 0.04em;
+      margin: 2.25rem 0 0.75rem;
+    }
+    p, li { font-size: 1.05rem; margin-bottom: 1rem; }
+    ul { padding-left: 1.4rem; margin-bottom: 1rem; }
+    a { color: var(--ghost-light); }
+    .back { display: inline-block; margin-bottom: 2.5rem; color: var(--ghost-light); text-decoration: none; font-size: 0.9rem; }
+    .back:hover { text-decoration: underline; }
+    strong { color: var(--candleflame); }
+  
