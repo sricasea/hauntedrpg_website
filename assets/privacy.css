@@ -37,4 +37,15 @@
     .back { display: inline-block; margin-bottom: 2.5rem; color: var(--ghost-light); text-decoration: none; font-size: 0.9rem; }
     .back:hover { text-decoration: underline; }
     strong { color: var(--candleflame); }
-  
+    .pagefoot {
+      max-width: 720px;
+      margin: 4rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--smoke-grey);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      color: var(--smoke-grey);
+    }
+    .pagefoot a { color: var(--ghost-light); text-decoration: none; }
+    .pagefoot a:hover { text-decoration: underline; }
+
