@@ -154,6 +154,13 @@
       margin: 0;
     }
 
+    .signup-banner .signup-consent {
+      width: 100%;
+      text-align: center;
+      font-size: 0.68rem;
+      margin-top: 0.3rem;
+    }
+
     /* Mobile: keep the banner prominent but clear it from the fixed nav */
     @media (max-width: 768px) {
       nav { display: none; }
@@ -400,6 +407,21 @@
     .cta-form input[type="email"]::placeholder {
       color: var(--smoke-grey);
       opacity: 0.6;
+    }
+
+    /* Inline consent notice — required disclosure that submitting the form subscribes you */
+    .signup-consent {
+      font-family: var(--font-mono);
+      color: var(--smoke-grey);
+      font-size: 0.72rem;
+      letter-spacing: 0.03em;
+      line-height: 1.5;
+      margin-top: 0.9rem;
+      margin-bottom: 0;
+    }
+
+    .signup-consent a {
+      color: var(--ghost-light);
     }
 
     .cta-form button {
