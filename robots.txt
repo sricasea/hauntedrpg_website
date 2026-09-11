@@ -1,11 +1,11 @@
 # hauntedrpg.com
-# Open to all crawlers, including AI search / answer engines — we WANT
+# Open to all crawlers, including AI search / answer engines. We WANT
 # Haunted to be discoverable and citable ahead of the Oct 1 launch.
 #
 # NOTE: this file is the origin's own robots.txt. If Cloudflare (or another
 # edge/proxy) sits in front of this site with its own bot-management rules,
 # check that it isn't prepending a conflicting Disallow block for these same
-# user-agents — a proxy-injected block can take precedence over everything
+# user-agents: a proxy-injected block can take precedence over everything
 # below regardless of what this file says. Verify with:
 #   curl -s https://hauntedrpg.com/robots.txt
 # and compare against this file.
@@ -13,7 +13,7 @@
 User-agent: *
 Allow: /
 
-# AI search / answer + training crawlers — explicitly welcome ahead of launch.
+# AI search / answer + training crawlers: explicitly welcome ahead of launch.
 User-agent: GPTBot
 Allow: /
 

@@ -108,7 +108,7 @@ strong { color: var(--candleflame); }
   margin: 0.4rem 0 1.5rem;
 }
 
-/* The human-made statement — set apart */
+/* The human-made statement - set apart */
 .human-made {
   border-left: 2px solid var(--magenta);
   padding-left: 1.2rem;

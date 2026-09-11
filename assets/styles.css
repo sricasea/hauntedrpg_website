@@ -9,6 +9,7 @@
       --smoke-grey:   #5A6474;
       --error:        #B5484A;
       --magenta:      #D24F97;
+      --gamefound-green: #17C07F;
 
       --font-body:    'IM Fell English', Georgia, serif;
       --font-heading: 'Anton SC', sans-serif;
@@ -70,7 +71,7 @@
     }
 
     /* =====================================================================
-       NAVIGATION — fixed, top-right, fades left to transparent
+       NAVIGATION - fixed, top-right, fades left to transparent
        ===================================================================== */
     nav {
       position: fixed;
@@ -102,7 +103,7 @@
     }
 
     /* =====================================================================
-       TOP SIGN-UP BANNER — same signup form, second placement
+       TOP SIGN-UP BANNER - same signup form, second placement
        ===================================================================== */
     .signup-banner {
       position: relative;
@@ -114,13 +115,13 @@
     }
 
     .signup-banner-inner {
-      max-width: 900px;
+      max-width: 1160px;
       margin: 0 auto;
       padding: 1.2rem 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1.25rem;
       flex-wrap: wrap;
     }
 
@@ -132,6 +133,7 @@
       text-transform: uppercase;
       opacity: 1;
       margin: 0;
+      white-space: nowrap;
     }
 
     .signup-banner .cta-form {
@@ -176,7 +178,7 @@
     }
 
     /* =====================================================================
-       HERO — full-bleed cover art (title is baked into the image)
+       HERO - full-bleed cover art (title is baked into the image)
        ===================================================================== */
     #hero {
       position: relative;
@@ -227,7 +229,7 @@
       #hero::after { display: none; }
     }
 
-    /* About section lead — relocated hero tagline */
+    /* About section lead - relocated hero tagline */
     .about-lead {
       font-family: var(--font-body);
       font-style: italic;
@@ -258,7 +260,7 @@
     }
 
     /* =====================================================================
-       TYPOGRAPHY — headings & body
+       TYPOGRAPHY - headings & body
        ===================================================================== */
     h2 {
       font-family: var(--font-heading);
@@ -282,13 +284,13 @@
     }
 
     /* =====================================================================
-       THE FEEL — case-file artifact section
+       THE FEEL - case-file artifact section
        ===================================================================== */
     #feel .section-inner {
       text-align: center;
     }
 
-    /* "In the register of" — monospaced label, spaced caps */
+    /* "In the register of" - monospaced label, spaced caps */
     .feel-label {
       font-family: var(--font-mono);
       color: var(--smoke-grey);
@@ -299,7 +301,7 @@
       margin-bottom: 0.4rem;
     }
 
-    /* Touchstones list — ghost light, Chandler42, dried-blood separators */
+    /* Touchstones list - ghost light, Chandler42, dried-blood separators */
     .touchstones {
       font-family: var(--font-mono);
       color: var(--ghost-light);
@@ -316,7 +318,7 @@
       opacity: 1;
     }
 
-    /* "You know the feeling." — coming-soon style, spaced mono caps */
+    /* "You know the feeling." - coming-soon style, spaced mono caps */
     .feel-closer {
       font-family: var(--font-mono);
       color: var(--smoke-grey);
@@ -333,7 +335,7 @@
        soft box around the form area.
        ===================================================================== */
 
-    /* Subtle background shift — slightly warmer and lighter than --bg */
+    /* Subtle background shift - slightly warmer and lighter than --bg */
     #mailing-list {
       background-color: #16182B;
       border-top: 1px solid rgba(58, 54, 82, 0.55);
@@ -344,7 +346,7 @@
       text-align: center;
     }
 
-    /* "BackerKit launching November 2026." — headline scale */
+    /* "BackerKit launching November 2026." - headline scale */
     .cta-launch {
       font-family: var(--font-heading);
       color: var(--magenta);
@@ -353,7 +355,7 @@
       margin-bottom: 0.75rem;
     }
 
-    /* "The case is still open." — IM Fell italic, larger than before */
+    /* "The case is still open." - IM Fell italic, larger than before */
     .cta-open {
       font-family: var(--font-body);
       font-style: italic;
@@ -363,7 +365,7 @@
       margin-bottom: 3rem;
     }
 
-    /* Soft box wrapping the form — low-contrast border, gentle inset feel */
+    /* Soft box wrapping the form - low-contrast border, gentle inset feel */
     .cta-box {
       display: inline-block;
       border: 1px solid rgba(210, 79, 151, 0.28);
@@ -384,7 +386,7 @@
       margin-bottom: 1.25rem;
     }
 
-    /* Form — borderless-feeling, single bottom border as the visual container */
+    /* Form - borderless-feeling, single bottom border as the visual container */
     .cta-form {
       display: flex;
       align-items: stretch;
@@ -409,7 +411,7 @@
       opacity: 0.6;
     }
 
-    /* Inline consent notice — required disclosure that submitting the form subscribes you */
+    /* Inline consent notice - required disclosure that submitting the form subscribes you */
     .signup-consent {
       font-family: var(--font-mono);
       color: var(--smoke-grey);
@@ -444,22 +446,25 @@
       color: var(--bg);
     }
 
-    /* Secondary CTA — follow on Gamefound */
+    /* Secondary CTA - follow on Gamefound */
     .gf-follow {
       display: inline-block;
       margin-top: 1.7rem;
       font-family: var(--font-body);
       font-size: 0.98rem;
       letter-spacing: 0.03em;
-      color: var(--ghost-light);
+      font-weight: 600;
+      background: var(--gamefound-green);
+      color: var(--bg);
       text-decoration: none;
-      border: 1px solid rgba(143, 187, 207, 0.5);
+      border: 1px solid var(--gamefound-green);
       border-radius: 2px;
       padding: 0.65rem 1.4rem;
-      transition: background-color 0.2s ease, color 0.2s ease;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
     }
     .gf-follow:hover {
-      background: var(--ghost-light);
+      background: #13A86E;
+      border-color: #13A86E;
       color: var(--bg);
     }
 
@@ -518,7 +523,7 @@
        FORM FEEDBACK STATES
        ===================================================================== */
 
-    /* Success — replaces the form inside .cta-box */
+    /* Success - replaces the form inside .cta-box */
     .cta-confirm {
       font-family: var(--font-body);
       font-style: italic;
@@ -527,7 +532,7 @@
       margin-bottom: 0;
     }
 
-    /* Error — appears below the form */
+    /* Error - appears below the form */
     .cta-error {
       font-family: var(--font-mono);
       color: var(--error);
@@ -640,7 +645,7 @@
     .footer-legal a:hover { text-decoration: underline; }
 
     /* =====================================================================
-       THE BASICS — spec strip (case-file register)
+       THE BASICS - spec strip (case-file register)
        ===================================================================== */
     #basics .section-inner { text-align: center; }
 
@@ -689,3 +694,83 @@
     }
 
   
+
+
+    /* =====================================================================
+       ACCESSIBILITY - visible keyboard focus
+       ===================================================================== */
+    a:focus-visible, button:focus-visible, input:focus-visible, iframe:focus-visible {
+      outline: 2px solid var(--ghost-light);
+      outline-offset: 2px;
+    }
+
+    /* =====================================================================
+       ENTRY CHOICE - two ways in
+       ===================================================================== */
+    #choose { background-color: #121427; }
+    #choose .section-inner { max-width: 880px; }
+    .choose-intro {
+      font-family: var(--font-mono); color: var(--smoke-grey);
+      text-transform: uppercase; letter-spacing: 0.26em; font-size: 0.72rem;
+      text-align: center; opacity: 0.85; margin-bottom: 2.25rem;
+    }
+    .choose-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .choose-card {
+      border: 1px solid rgba(210, 79, 151, 0.28);
+      background: rgba(14, 15, 28, 0.55);
+      padding: 2rem 1.75rem 2.1rem;
+      display: flex; flex-direction: column;
+    }
+    .choose-card.secondary { border-color: rgba(143, 187, 207, 0.3); }
+    .choose-card h3 {
+      font-family: var(--font-heading); color: var(--magenta);
+      font-size: 1.3rem; letter-spacing: 0.05em; margin: 0 0 0.6rem; text-align: left;
+    }
+    .choose-card.secondary h3 { color: var(--ghost-light); }
+    .choose-card p { font-size: 1rem; line-height: 1.7; margin-bottom: 1.3rem; }
+    .choose-card .cta-form { margin-top: auto; }
+    .choose-card .signup-consent { text-align: left; }
+    .choose-card .gf-follow { margin-top: auto; align-self: flex-start; }
+    @media (max-width: 768px) { .choose-grid { grid-template-columns: 1fr; } }
+
+    /* Post-signup action buttons (Quickstart download + Gamefound) */
+    .cta-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin: 1.2rem 0 0; }
+    .qs-download, .gf-go {
+      display: inline-block; font-family: var(--font-body); font-size: 0.95rem;
+      letter-spacing: 0.03em; text-decoration: none; padding: 0.65rem 1.4rem;
+      border-radius: 2px; transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .qs-download { background: var(--magenta); color: var(--bg); border: 1px solid var(--magenta); }
+    .qs-download:hover { background: var(--ghost-light); border-color: var(--ghost-light); }
+    .gf-go { background: var(--gamefound-green); color: var(--bg); border: 1px solid var(--gamefound-green); font-weight: 600; }
+    .gf-go:hover { background: #13A86E; border-color: #13A86E; color: var(--bg); }
+
+    /* =====================================================================
+       WELCOME VIDEO - vertical short in a portrait frame
+       ===================================================================== */
+    #watch .section-inner { text-align: center; }
+    .video-frame {
+      position: relative; width: 100%; max-width: 340px; margin: 0 auto;
+      aspect-ratio: 9 / 16; border: 1px solid rgba(210, 79, 151, 0.28); background: #000;
+    }
+    .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .video-caption {
+      font-family: var(--font-mono); color: var(--smoke-grey); font-size: 0.75rem;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-top: 1rem;
+    }
+
+
+    /* =====================================================================
+       GAMEFOUND CTA in the top banner (co-equal, oversized on Jeremy's orders)
+       ===================================================================== */
+    .banner-gf {
+      display: inline-block; background: var(--gamefound-green); color: var(--bg);
+      font-family: var(--font-body); font-size: 1.12rem; letter-spacing: 0.03em; font-weight: 700;
+      padding: 0.95rem 2rem; border: 1px solid var(--gamefound-green); border-radius: 2px;
+      text-decoration: none; white-space: nowrap;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+    .banner-gf:hover { background: #13A86E; border-color: #13A86E; }
+    @media (max-width: 768px) {
+      .banner-gf { width: 100%; text-align: center; padding: 1rem 1.4rem; }
+    }

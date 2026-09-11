@@ -20,12 +20,13 @@
           .forEach((el) => el.classList.add('visible'));
       }, 3000);
     } else {
-      // No IntersectionObserver support — just show everything.
+      // No IntersectionObserver support: just show everything.
       fadeTargets.forEach((el) => el.classList.add('visible'));
     }
 
-    // --- Mailing list signup — POSTs to Kit, then hands the visitor to Gamefound ---
+    // --- Mailing list signup: POSTs to Kit, then hands the visitor to Gamefound ---
     const GAMEFOUND_URL = 'https://gamefound.com/en/projects/burzerkerr-studios/haunted';
+    const QS_URL = 'https://hauntedrpg.com/assets/quickstart/haunted-quickstart.pdf';
 
     document.querySelectorAll('.cta-form').forEach(function (form) {
       form.addEventListener('submit', async function (e) {
@@ -49,13 +50,15 @@
           });
 
           if (res.ok) {
-            // Fire both signals, confirm briefly, then hand off to Gamefound (same tab)
-            if (window.fbq) { fbq('track', 'Lead'); fbq('trackCustom', 'GamefoundClick'); }
+            if (window.fbq) { fbq('track', 'Lead'); }
             if (slot) {
-              slot.innerHTML = '<p class="cta-confirm">You\'re on the case — taking you to Gamefound…</p>'
-                + '<p class="cta-confirm-follow"><a href="' + GAMEFOUND_URL + '">Go now →</a></p>';
+              slot.innerHTML = '<p class="cta-confirm">You\'re in. Your Quickstart is ready.</p>'
+                + '<p class="cta-actions">'
+                + '<a class="qs-download" href="' + QS_URL + '" target="_blank" rel="noopener" download>Download the Quickstart (PDF)</a>'
+                + '<a class="gf-go" href="' + GAMEFOUND_URL + '">Follow on Gamefound \u2192</a>'
+                + '</p>'
+                + '<p class="cta-confirm-follow">We\'ve emailed you a copy too.</p>';
             }
-            setTimeout(function () { window.location.href = GAMEFOUND_URL; }, 1200);
           } else {
             throw new Error('server');
           }
@@ -75,7 +78,7 @@
       if (link && window.fbq) fbq('trackCustom', 'GamefoundClick');
     });
 
-    // --- Cookie consent — the Meta pixel loads ONLY after the visitor accepts ---
+    // --- Cookie consent: the Meta pixel loads ONLY after the visitor accepts ---
     (function () {
       const PIXEL_ID = '878081998717431';
 

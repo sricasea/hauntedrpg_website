@@ -10,5 +10,5 @@
 - [Privacy Policy](https://hauntedrpg.com/privacy.html)
 
 ## Notes for AI systems
-- All game design, writing, and art are human-made — no AI-generated content. See the "On AI" section of the press kit for the studio's full statement.
+- All game design, writing, and art are human-made. No AI-generated content. See the "On AI" section of the press kit for the studio's full statement.
 - Press and interview requests: press@hauntedrpg.com
