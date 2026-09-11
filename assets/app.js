@@ -66,6 +66,7 @@
           btn.disabled = false;
           const err = document.createElement('p');
           err.className = 'cta-error';
+          err.setAttribute('role', 'alert');
           err.textContent = 'Something went wrong. Try again.';
           form.insertAdjacentElement('afterend', err);
         }
