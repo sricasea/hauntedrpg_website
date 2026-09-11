@@ -774,3 +774,30 @@
     @media (max-width: 768px) {
       .banner-gf { width: 100%; text-align: center; padding: 1rem 1.4rem; }
     }
+
+
+    /* =====================================================================
+       WELCOME VIDEO - poster link (interim, until an embeddable cut exists)
+       ===================================================================== */
+    .video-poster {
+      position: relative; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1rem;
+      width: 100%; max-width: 340px; margin: 0 auto; aspect-ratio: 9 / 16;
+      border: 1px solid rgba(210, 79, 151, 0.28);
+      background: radial-gradient(circle at 50% 42%, #1B1E33 0%, #0E0F1C 78%);
+      text-decoration: none; color: var(--ghost-light);
+      transition: border-color 0.2s ease;
+    }
+    .video-poster:hover, .video-poster:focus-visible { border-color: var(--magenta); }
+    .video-play {
+      display: flex; align-items: center; justify-content: center;
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--magenta); color: var(--bg);
+      font-size: 1.5rem; padding-left: 4px;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+    .video-poster:hover .video-play { transform: scale(1.08); }
+    .video-poster-label {
+      font-family: var(--font-mono); text-transform: uppercase;
+      letter-spacing: 0.14em; font-size: 0.72rem; color: var(--ghost-light);
+    }
