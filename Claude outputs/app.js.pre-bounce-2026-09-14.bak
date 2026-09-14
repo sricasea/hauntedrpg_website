@@ -50,19 +50,15 @@
           });
 
           if (res.ok) {
-            if (window.fbq) {
-              fbq('track', 'Lead');
-              // We navigate to Gamefound programmatically below, so the delegated
-              // a[href*=gamefound] click handler won't fire. Record the
-              // GamefoundClick retargeting signal here instead.
-              fbq('trackCustom', 'GamefoundClick');
-            }
+            if (window.fbq) { fbq('track', 'Lead'); }
             if (slot) {
-              slot.innerHTML = '<p class="cta-confirm">You\'re on the List! Find your free Quickstart in your inbox. And now, to Gamefound!</p>';
+              slot.innerHTML = '<p class="cta-confirm">You\'re in. Your Quickstart is ready.</p>'
+                + '<p class="cta-actions">'
+                + '<a class="qs-download" href="' + QS_URL + '" target="_blank" rel="noopener" download>Download the Quickstart (PDF)</a>'
+                + '<a class="gf-go" href="' + GAMEFOUND_URL + '">Follow on Gamefound \u2192</a>'
+                + '</p>'
+                + '<p class="cta-confirm-follow">We\'ve emailed you a copy too.</p>';
             }
-            // Short beat so the message is legible and the pixel beacons flush,
-            // then hand the visitor straight to the Gamefound campaign.
-            setTimeout(function () { window.location.assign(GAMEFOUND_URL); }, 1200);
           } else {
             throw new Error('server');
           }
