@@ -1,3 +1,14 @@
+    // --- Adobe Fonts (Chandler42): load without blocking first paint ---
+    // Injected here rather than as a <link> in <head> so the page renders
+    // immediately; Chandler42 text shows in Courier until the face arrives.
+    // (Done in JS, not an inline onload, because the CSP forbids inline handlers.)
+    (function () {
+      const tk = document.createElement('link');
+      tk.rel = 'stylesheet';
+      tk.href = 'https://use.typekit.net/miv0ffy.css';
+      document.head.appendChild(tk);
+    })();
+
     // --- Fade-up on scroll (progressive enhancement) ---
     const fadeTargets = document.querySelectorAll('.fade-up');
     if ('IntersectionObserver' in window) {

@@ -28,13 +28,11 @@
   <meta property="article:modified_time" content="2026-08-23T00:00:00Z">
 
   <!-- Meta Pixel loads only after cookie consent (GDPR/ePrivacy). See the consent script at the end of <body>. -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://use.typekit.net" crossorigin>
   <link rel="preconnect" href="https://p.typekit.net" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.typekit.net/miv0ffy.css">
-  <link rel="stylesheet" href="assets/styles.css?v=20260912">
+  <link rel="preload" href="assets/fonts/im-fell-english-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Adobe Fonts (Chandler42) is loaded by assets/app.js so it never blocks first paint. -->
+  <link rel="stylesheet" href="assets/styles.css?v=20260923">
 
   <!-- Structured data: machine-readable facts for search + AI assistants -->
   <script type="application/ld+json">
@@ -377,7 +375,7 @@
        1. Fade-up on scroll via IntersectionObserver
        2. Mailing list form placeholder handler
        ==================================================================== -->
-  <script src="assets/app.js?v=20260912" defer></script>
+  <script src="assets/app.js?v=20260923" defer></script>
 
 </body>
 </html>
