@@ -29,7 +29,7 @@
 
       --font-body:    'IM Fell English', Georgia, serif;
       --font-heading: 'Anton SC', sans-serif;
-      --font-mono:    chandler42, 'Courier New', Courier, monospace;
+      --font-mono:    'chandler-42-regular', chandler42, 'Courier New', Courier, monospace;
 
       /* Cover art native aspect ratio 3508 : 2480 */
       --cover-ratio: calc(3508 / 2480);
