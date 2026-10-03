@@ -829,3 +829,7 @@
       padding: 0.6rem 1rem; border-radius: 2px; text-decoration: none;
     }
     .skip-link:focus { left: 0.75rem; top: 0.75rem; }
+
+    /* Post-signup actions: instant Quickstart download + Gamefound */
+    .cta-actions .gf-follow { margin-top: 0; }
+    .signup-banner .cta-actions { width: 100%; margin: 0.5rem 0 0; }

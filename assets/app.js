@@ -35,7 +35,7 @@
       fadeTargets.forEach((el) => el.classList.add('visible'));
     }
 
-    // --- Mailing list signup: POSTs to Kit, then hands the visitor to Gamefound ---
+    // --- Mailing list signup: POSTs to Kit, then shows the Quickstart download + Gamefound link ---
     const GAMEFOUND_URL = 'https://gamefound.com/en/projects/burzerkerr-studios/haunted';
     const QS_URL = 'https://hauntedrpg.com/assets/quickstart/haunted-quickstart.pdf';
 
@@ -61,19 +61,18 @@
           });
 
           if (res.ok) {
-            if (window.fbq) {
-              fbq('track', 'Lead');
-              // We navigate to Gamefound programmatically below, so the delegated
-              // a[href*=gamefound] click handler won't fire. Record the
-              // GamefoundClick retargeting signal here instead.
-              fbq('trackCustom', 'GamefoundClick');
-            }
+            if (window.fbq) fbq('track', 'Lead');
             if (slot) {
-              slot.innerHTML = '<p class="cta-confirm">You\'re on the List! Find your free Quickstart in your inbox. And now, to Gamefound!</p>';
+              // Instant delivery: show the download right away (it is also emailed),
+              // plus a path back to the campaign. No auto-redirect, so visitors who
+              // came from Gamefound for the Quickstart actually get the file.
+              slot.innerHTML =
+                '<p class="cta-confirm">You\'re on the list! Your Quickstart is ready, and a copy is on its way to your inbox.</p>' +
+                '<p class="cta-actions">' +
+                  '<a class="gf-follow" href="' + QS_URL + '" target="_blank" rel="noopener">Download the Quickstart (PDF) &rarr;</a> ' +
+                  '<a class="gf-follow" href="' + GAMEFOUND_URL + '" target="_blank" rel="noopener noreferrer">Back <em>Haunted</em> on Gamefound &rarr;</a>' +
+                '</p>';
             }
-            // Short beat so the message is legible and the pixel beacons flush,
-            // then hand the visitor straight to the Gamefound campaign.
-            setTimeout(function () { window.location.assign(GAMEFOUND_URL); }, 1200);
           } else {
             throw new Error('server');
           }
